@@ -99,7 +99,7 @@ def main(args):
                                                collate_fn=train_dataset.collate_fn)
 
     val_loader = torch.utils.data.DataLoader(val_dataset,
-                                             batch_size=batch_size,
+                                             batch_size=1,
                                              num_workers=num_workers,
                                              pin_memory=True,
                                              collate_fn=val_dataset.collate_fn)
@@ -185,7 +185,7 @@ def parse_args():
     parser.add_argument("--num-classes", default=20, type=int)
     parser.add_argument("--aux", default=False, type=bool, help="auxilier loss")
     parser.add_argument("--device", default="cuda", help="training device")
-    parser.add_argument("-b", "--batch-size", default=2, type=int)
+    parser.add_argument("-b", "--batch-size", default=4, type=int)
     parser.add_argument("--epochs", default=10, type=int, metavar="N",
                         help="number of total epochs to train")
 
@@ -195,12 +195,12 @@ def parse_args():
     parser.add_argument('--wd', '--weight-decay', default=1e-4, type=float,
                         metavar='W', help='weight decay (default: 1e-4)',
                         dest='weight_decay')
-    parser.add_argument('--print-freq', default=10, type=int, help='print frequency')
+    parser.add_argument('--print-freq', default=20, type=int, help='print frequency')
     parser.add_argument('--resume', default='', help='resume from checkpoint')
     parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                         help='start epoch')
     # Mixed precision training parameters
-    parser.add_argument("--amp", default=False, type=bool,
+    parser.add_argument("--amp", default=True, type=bool,
                         help="Use torch.cuda.amp for mixed precision training")
 
     args = parser.parse_args()
